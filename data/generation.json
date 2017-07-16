@@ -1,8 +1,0 @@
-[
-{"title": "The Greatest Generation", "min": 86, "max": 100},
-{"title": "The Silent Generation", "min": 65, "max":85},
-{"title": "Baby Boomer Generation",	"min": 46, "max": 64},
-{"title": "Generation X", "min": 31, "max": 45},
-{"title": "Millennial",  "min": 15, "max":  30},
-{"title": "Generation Z", "min": 0, "max":  14}
-]

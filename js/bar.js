@@ -17,23 +17,24 @@ var barGraph = {
     xAxis: null,
     yAxis: null,
     metric: null,
+    dimension: null,
     x: function(d) {
-        return this.container.xOffset + this.xScale(d['age'])
+        return this.container.xOffset + this.xScale(d[this.dimension])
     },
     y: function(d) {
         return this.yScale(d[this.metric]);
     },
     height: function(d) {
-        return (this.yScale(0) - this.yScale(d[this.metric]));
+        return (this.yScale(6) - this.yScale(d[this.metric]));
     },
 
     // tooltips will display the info about the currently highlignted item.
     _toolTip: function(d) {
         this.container.svg.append("text")
-            .attr("x", this.xScale(d['age']))
+            .attr("x", this.xScale(d[this.dimension]))
             .attr("y", this.yScale(d[this.metric]))
             .attr("class", "tt")
-            .text("Age: " + d.age + " Pop: " + d[this.metric]);
+            .text(d[this.dimension] + " : " + d[this.metric]);
     },
 
     //Remove tooltip will erase it from the screen on mouseout.
@@ -58,21 +59,20 @@ var barGraph = {
 
     // _initPhase is going to set the metric, scales, domains, and axis
     // it will bind the data to our svg element
-    _init: function(d, m) {
+    _init: function(d, dim, m) {
+        console.log(d);
+        self = this;
         this.metric = m;
-        this.xScale = d3.scaleLinear()
-            .domain([
-                d3.min(d, function(d) {
-                    return d.age;
-                }),
-                d3.max(d, function(d) {
-                    return d.age;
-                })
-            ])
-            .range([0, 540]);
-
+        self.dimension = dim;
+        var domainArr = [];
+        var rangeArr = [];
+        d.forEach(function(t){domainArr.push(t["key"])})
+        d.forEach(function(t, i){rangeArr.push(540 * i / d.length)})
+        this.xScale = d3.scaleOrdinal()
+            .domain(domainArr)
+            .range(rangeArr);
         this.yScale = d3.scaleLinear()
-            .domain([500000, 5000000])
+            .domain([ 6.2, 8 ])
             .range([250, 25]);
         this.yAxis = d3.axisLeft().scale(this.yScale);
         this.xAxis = d3.axisBottom().scale(this.xScale);
@@ -134,8 +134,8 @@ var barGraph = {
 
     // _render function should be called every time you want to redraw the graph
     // takes as parameters the data and the metric name
-    render: function(d, m) {
-        this._init(d, m);
+    render: function(d, dim, m) {
+        this._init(d, dim, m);
         this._enter(d);
         this._update(d);
         this._exit();

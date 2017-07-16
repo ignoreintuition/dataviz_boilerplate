@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Data Visualization Dashboard Example</title>
+	<title>Data Visualization Dashboard Boilerplate</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,7 +21,7 @@
 <body>
 	<div id="header" class="row header">
 		<div class="col-md-12">
-			<h1> Population of US Residents in 2010 by Age </h1>
+			<h1> IGN Game Reviews </h1>
 		</div>
 	</div>
 	<div class="container">
@@ -30,11 +30,18 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Filters and Metrics</div>
 					<div class="panel-body">
-						<button class="btn btn-default" type="submit" id="total"> Total </button>
-						<button class="btn btn-default" type="submit" id="male"> Males </button>
-						<button class="btn btn-default" type="submit" id="female"> Females </button>
-						<button class="btn btn-default" type="submit" id="under50"> Under 50 </button>
-						<button class="btn btn-default" type="submit" id="over50"> Over 50 </button>
+						<div class="dropdown">
+						  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						    Genres
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						    <li><a id="adventure" href="#">Adventure</a></li>
+						    <li><a id="sports" href="#">Sports</a></li>
+						    <li role="separator" class="divider"></li>
+						    <li><a id="all" href="#">All Genres</a></li>
+						  </ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -42,7 +49,7 @@
 		<div class="row">
 			<div class="col-md-8">
 				<div class="panel panel-default">
-					<div class="panel-heading">Population by Age</div>
+					<div class="panel-heading">Graph 1</div>
 					<div class="panel-body">
 						<div id="graph"> </div>
 					</div>
@@ -50,28 +57,29 @@
 			</div>
 			<div class="col-md-4">
 				<div class="panel panel-default">
-					<div class="panel-heading">Percentage of Population by Age</div>
+					<div class="panel-heading">Graph 2</div>
 					<div class="panel-body">
-						<div id="chart"> </div>
+						<div id="graph2"> </div>
 					</div>
 				</div>
-			</div>		</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- Footer -->
 	<div class="row" id="footer">
 		<div class="col-md-12">
-			<p>2010 Census Data for the United States</p>
+			<p>Scores rated by ign.com</p>
 		</div>
 	</div>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script src="js/vendor/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.9.1/d3.min.js"></script>
 	<script src="js/bar.js"></script>
-	<script src="js/pie.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/main2.js"></script>
 
 </body>
 
