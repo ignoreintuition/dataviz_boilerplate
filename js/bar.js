@@ -1,8 +1,7 @@
-// dataViz
+// dataViz Boilderplate
 // a tutorial on creating data vizualizations in JavaScript using D3
 
-// Graph is an object that is accessible throughout the IIFE
-// that contains all of the metadata about the graph and the container.
+// barGraph contains all of the metadata about the graph and the container.
 var barGraph = {
     container: {
         svg: null,
@@ -18,6 +17,8 @@ var barGraph = {
     yAxis: null,
     metric: null,
     dimension: null,
+
+    // helper functions to return x, y, hight with proper scales and offsets
     x: function(d) {
         return this.container.xOffset + this.xScale(d[this.dimension])
     },
@@ -62,22 +63,26 @@ var barGraph = {
     _init: function(d, dim, m) {
         console.log(d);
         self = this;
-        this.metric = m;
+        self.metric = m;
         self.dimension = dim;
         var domainArr = [];
         var rangeArr = [];
+
+        //push the groupby values of the dimension to the domain
         d.forEach(function(t){domainArr.push(t["key"])})
         d.forEach(function(t, i){rangeArr.push(540 * i / d.length)})
-        this.xScale = d3.scaleOrdinal()
+
+        //set the scales (ordinal, linear)
+        self.xScale = d3.scaleOrdinal()
             .domain(domainArr)
             .range(rangeArr);
-        this.yScale = d3.scaleLinear()
+        self.yScale = d3.scaleLinear()
             .domain([ 6.2, 8 ])
             .range([250, 25]);
-        this.yAxis = d3.axisLeft().scale(this.yScale);
-        this.xAxis = d3.axisBottom().scale(this.xScale);
+        self.yAxis = d3.axisLeft().scale(this.yScale);
+        self.xAxis = d3.axisBottom().scale(this.xScale);
 
-        this.rects = this.container.svg.selectAll("rect")
+        self.rects = this.container.svg.selectAll("rect")
             .data(d)
     },
 
@@ -86,6 +91,7 @@ var barGraph = {
     _enter: function(d) {
         let self = this;
         let w = (480 / d.length);
+        // For every value of d we set attributes of the visuals
         self.rects.enter()
             .append("rect")
             .attr("class", "bar")
@@ -113,6 +119,7 @@ var barGraph = {
     _update: function(d) {
         let self = this;
         let w = Math.floor(540 / d.length);
+        // Build our transitions and update the attributes for each data point
         self.rects.transition().
         duration(750)
             .attr("width", w)
